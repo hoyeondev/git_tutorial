@@ -18,17 +18,20 @@ win.bgcolor("black")
 win.setup(width=600, height=600)
 win.tracer(0)
 
+# 게임 시작 메세지
+def show_start_message():
+    start_msg = turtle.Turtle()
+    start_msg.hideturtle()
+    start_msg.color("white")
+    start_msg.penup()
+    start_msg.goto(0, 0)
+    start_msg.write("게임 Start!", align="center", font=("Arial", 28, "bold"))
+    win.update()
+    time.sleep(2)
+    start_msg.clear()
 
-# 게임 시작 메시지
-start_msg = turtle.Turtle()
-start_msg.hideturtle()
-start_msg.color("white")
-start_msg.penup()
-start_msg.goto(0, 0)
-start_msg.write("게임 Start!", align="center", font=("Arial", 28, "bold"))
-win.update()
-time.sleep(2)
-start_msg.clear()
+
+show_start_message()
 
 # Snake head
 head = turtle.Turtle()
@@ -102,6 +105,7 @@ while True:
     win.update()
 
     # 벽에 부딪힘
+    # abs : 절대값 함수
     if abs(head.xcor()) > 290 or abs(head.ycor()) > 290:
         time.sleep(1)
         
@@ -114,6 +118,11 @@ while True:
         message.write(f"죽었다!\n최종 점수: {score}", align="center", font=("Arial", 24, "bold"))
         # 화면 갱신
         win.update()
+        # 잠깐 메시지 보여주고 지우기
+        time.sleep(2)
+        message.clear()
+        # 게임 start 메세지
+        show_start_message()
         
         # 초기화
         head.goto(0, 0)
@@ -126,9 +135,7 @@ while True:
         score_display.clear()
         score_display.write("Score: 0", align="center", font=("Courier", 24, "normal"))
         
-        # 잠깐 메시지 보여주고 지우기
-        time.sleep(2)
-        message.clear()
+
 
     # 먹이와 충돌
     if head.distance(food) < 20:
@@ -175,6 +182,8 @@ while True:
             # 화면 갱신
             win.update()
             message.clear()
+            # 게임 start 메세지
+            show_start_message()
             
             head.goto(0, 0)
             head.direction = "stop"
